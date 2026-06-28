@@ -1,0 +1,62 @@
+{
+  "name": "fin-data-mcp-server",
+  "version": "0.2.0",
+  "description": "One-stop MCP server for free financial market data — 83 no-key tools across stocks, indices, options, FX, crypto, commodities, energy, prediction markets, macro, filings, flights, sentiment and congressional trading.",
+  "type": "module",
+  "bin": {
+    "fin-data-mcp-server": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "PROVIDERS.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "prepare": "npm run build",
+    "smoke": "tsx scripts/smoke-full.ts",
+    "inspect": "npx @modelcontextprotocol/inspector tsx src/index.ts"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "ai-sdk",
+    "finance",
+    "market-data",
+    "stocks",
+    "crypto",
+    "forex",
+    "macro",
+    "options"
+  ],
+  "license": "MIT",
+  "author": "CohenD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CohenD/fin-data-mcp.git"
+  },
+  "homepage": "https://github.com/CohenD/fin-data-mcp#readme",
+  "bugs": {
+    "url": "https://github.com/CohenD/fin-data-mcp/issues"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

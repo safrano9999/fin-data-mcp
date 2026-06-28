@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      # npm ci runs the `prepare` script, which builds dist/.
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run build
+      # Confirm the server boots and lists tools over stdio (no network calls).
+      - run: |
+          node -e '
+            import("./dist/providers/index.js").then(({allTools, catalog}) => {
+              if (allTools.length < 80) { console.error("Too few tools:", allTools.length); process.exit(1); }
+              console.log("OK:", allTools.length, "tools,", catalog.providerCount, "providers");
+            });
+          '

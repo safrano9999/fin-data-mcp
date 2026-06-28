@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "fin-data": {
+      "command": "node",
+      "args": ["dist/index.js"],
+      "env": {
+        "SEC_USER_AGENT": "fin-data-mcp (you@example.com)"
+      }
+    }
+  }
+}
